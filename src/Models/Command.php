@@ -1,6 +1,6 @@
 <?php
 
-namespace TomatoPHP\FilamentArtisan\Models;
+namespace CreativityKills\FilamentArtisan\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;

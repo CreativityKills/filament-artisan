@@ -1,0 +1,10 @@
+{
+    "private": true,
+    "scripts": {
+        "build-styles": "npx @tailwindcss/cli -i ./resources/css/theme.css -o ./resources/css/filament-artisan.css"
+    },
+    "devDependencies": {
+        "tailwindcss": "^4.0",
+        "@tailwindcss/cli": "^4.0"
+    }
+}

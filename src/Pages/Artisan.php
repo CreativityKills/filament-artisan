@@ -1,7 +1,8 @@
 <?php
 
-namespace TomatoPHP\FilamentArtisan\Pages;
+namespace CreativityKills\FilamentArtisan\Pages;
 
+use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -18,8 +19,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\Console\Output\BufferedOutput;
-use TomatoPHP\FilamentArtisan\Http\Controllers\GuiController;
-use TomatoPHP\FilamentArtisan\Models\Command;
+use CreativityKills\FilamentArtisan\Models\Command;
 use TomatoPHP\FilamentDeveloperGate\Http\Middleware\DeveloperGateMiddleware;
 
 class Artisan extends Page implements HasTable, HasActions
@@ -27,9 +27,9 @@ class Artisan extends Page implements HasTable, HasActions
     use InteractsWithTable;
     use InteractsWithActions;
 
-    protected static ?string $navigationIcon = 'heroicon-o-command-line';
+    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-command-line';
 
-    protected static string $view = 'filament-artisan::index';
+    protected string $view = 'filament-artisan::index';
 
     public static function getRouteMiddleware(Panel $panel): string|array
     {
@@ -69,7 +69,7 @@ class Artisan extends Page implements HasTable, HasActions
             Action::make('output')
                 ->icon('heroicon-s-computer-desktop')
                 ->color('warning')
-                ->form(fn(array $arguments = []) => [
+                ->schema(fn(array $arguments = []) => [
                     Textarea::make('output')
                         ->autosize()
                         ->default($arguments ? $arguments['output'] : session()->get('terminal_output'))
@@ -101,14 +101,14 @@ class Artisan extends Page implements HasTable, HasActions
         return $actions;
     }
 
-    public function runAction(?Command $item = null)
+    public function runAction(?Command $item = null): Action
     {
         return Action::make('runAction')
             ->label(trans('filament-artisan::messages.modal.label'))
             ->requiresConfirmation()
             ->view('filament-artisan::actions.run')
             ->viewData(['item' => $item])
-            ->form(function (array $arguments = []) {
+            ->schema(function (array $arguments = []) {
                 $form = [];
                 $commandArguments = $arguments['item']['arguments'] != 'null' ? json_decode($arguments['item']['arguments']) : [];
                 $commandOptions = $arguments['item']['options'] != 'null' ? json_decode($arguments['item']['options']) : [];
@@ -176,6 +176,8 @@ class Artisan extends Page implements HasTable, HasActions
         return $table
             ->query(Command::query())
             ->paginated(false)
+            ->deferFilters(config('filament-artisan.defer.filters', false))
+            ->deferColumnManager(config('filament-artisan.defer.columns', false))
             ->content(fn() => view('filament-artisan::table.content'))
             ->defaultSort('name')
             ->filters([
