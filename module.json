@@ -10,7 +10,7 @@
     "keywords": [],
     "priority": 0,
     "providers": [
-        "TomatoPHP\\FilamentArtisan\\FilamentArtisanServiceProvider"
+        "CreativityKills\\FilamentArtisan\\FilamentArtisanServiceProvider"
     ],
     "files": [],
     "title": {

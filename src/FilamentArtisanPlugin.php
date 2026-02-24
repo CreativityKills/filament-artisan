@@ -1,11 +1,11 @@
 <?php
 
-namespace TomatoPHP\FilamentArtisan;
+namespace CreativityKills\FilamentArtisan;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Nwidart\Modules\Module;
-use TomatoPHP\FilamentArtisan\Pages\Artisan;
+use CreativityKills\FilamentArtisan\Pages\Artisan;
 use TomatoPHP\FilamentDeveloperGate\FilamentDeveloperGatePlugin;
 
 

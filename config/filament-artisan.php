@@ -231,5 +231,18 @@ return [
         'show-only-commands-showing' => true,
         'group' => 'Settings',
         'icon' => 'heroicon-o-command-line',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Defer
+    |--------------------------------------------------------------------------
+    |
+    | Control whether table filters and column manager are deferred (lazy-loaded).
+    |
+    */
+    'defer' => [
+        'filters' => false,
+        'columns' => false,
     ]
 ];
